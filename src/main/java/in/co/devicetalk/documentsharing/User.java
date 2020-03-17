@@ -33,13 +33,13 @@ public class User implements Serializable{
 	@Column(unique = true, nullable = false)
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "role_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
 	private Role role;
 	
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="user_name",  referencedColumnName = "email_id",nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore

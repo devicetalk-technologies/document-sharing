@@ -22,6 +22,31 @@ public class UserService {
             throw new RecordNotFoundException("No User exist for given id");
         }
     }
+	public User findUser(User user) throws RecordNotFoundException 
+    {
+        Optional<User> event = repository.findUser(user.getStudent().getEmailId(),user.getPassword());
+         
+        if(event.isPresent()) {
+            return event.get();
+        } else {
+            throw new RecordNotFoundException("No User exist for given id");
+        }
+    }
+	public LoginResponseDto loginUser(LoginDto dto) throws RecordNotFoundException 
+    {
+        Optional<User> event = repository.findUser(dto.getUserName(),dto.getPassword());
+        
+        LoginResponseDto response = new LoginResponseDto();
+        if(event.isPresent()) {
+        	 response.setLoginStatus(true);
+             response.setRoleId(event.get().getRole().getId());
+             response.setRole(event.get().getRole().getRole());
+             return response;
+        } else {
+            response.setLoginStatus(false);
+            return response;
+        }
+    }
      
     public User createOrUpdateUser(User entity) throws RecordNotFoundException 
     {
